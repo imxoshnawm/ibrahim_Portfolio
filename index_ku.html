@@ -1,0 +1,2405 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <!--  Viewport Meta Tag -->
+  <meta name="viewport" 
+        content="width=device-width, 
+                initial-scale=1.0, 
+                maximum-scale=1.0, 
+                user-scalable=no,
+                viewport-fit=cover">
+  <title>ئیبراهیم حسین | گەشەپێدەری پڕۆگرام و شارەزای AI و ڕۆبۆتیک</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap">
+  <style>
+/* فۆنتی گشتی */
+:root {
+  --primary: #5271FF;
+  --primary-light: #7D90FF;
+  --dark: #222;
+  --dark-light: #444;
+  --light: #f5f5f5;
+  --light-dark: #ddd;
+  --text: #333;
+  --text-light: #666;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --border-radius: 8px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Noto Sans Arabic', sans-serif;
+  color: var(--text);
+  line-height: 1.6;
+  background: #fff;
+  overflow-x: hidden;
+  direction: rtl;
+}
+
+/* هەدەر و مێنیو */
+#header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: var(--shadow);
+  z-index: 1000;
+  transition: var(--transition);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+#header.scrolled {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  position: relative;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  transition: var(--transition);
+}
+
+.logo:hover {
+  color: var(--primary-light);
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.nav-link {
+  color: var(--dark);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.25rem;
+}
+
+.nav-link:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0%;
+  height: 2px;
+  background-color: var(--primary);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--primary);
+}
+
+.nav-link:hover:after {
+  width: 100%;
+}
+
+/* مۆبایل مێنیو */
+.mobile-menu-button {
+  display: none;
+  cursor: pointer;
+  z-index: 1100;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  color: white;
+  justify-content: center;
+  align-items: center;
+  transition: var(--transition);
+  box-shadow: 0 2px 8px rgba(82, 113, 255, 0.4);
+}
+
+.mobile-menu-button:hover {
+  background-color: var(--primary-light);
+  transform: scale(1.05);
+}
+
+.menu-icon {
+  font-size: 1.3rem;
+  transition: transform 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+}
+
+.nav-menu-header {
+  display: none;
+  padding: 1rem;
+  border-bottom: 1px solid var(--light-dark);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.menu-logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.nav-icon {
+  margin-left: 0.5rem;
+  opacity: 0.8;
+  transition: var(--transition);
+}
+
+/* ڕسپۆنسیڤ مێنیو بۆ مۆبایل */
+@media (max-width: 768px) {
+  .mobile-menu-button {
+    display: flex;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80%;
+    max-width: 320px;
+    height: 100vh;
+    background-color: white;
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    padding: 2rem 0;
+    z-index: 1050;
+    transform: translateX(105%);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), 
+                opacity 0.4s ease,
+                visibility 0.4s ease;
+  }
+
+  .nav-links.active {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-menu-header {
+    display: block;
+  }
+
+  .nav-link {
+    padding: 0.75rem 2rem;
+    width: 100%;
+    font-size: 1.1rem;
+    border-right: 3px solid transparent;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+
+  .nav-link:after {
+    display: none;
+  }
+
+  .nav-link:hover, 
+  .nav-link:focus {
+    background-color: rgba(82, 113, 255, 0.08);
+    border-right-color: var(--primary);
+    padding-right: 2.5rem;
+  }
+
+  /* مێنیو وەک دەرگا */
+  body:has(.nav-links.active)::beforae {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    z-index: 1040;
+    opacity: 0;
+    animation: fadeIn 0.4s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* ئەنیمەیشنی داخستنەوە */
+  .nav-links.closing {
+    transform: translateX(105%);
+  }
+
+  /* سکرۆڵ بار بۆ مێنیو ئەگەر زۆر درێژ بوو */
+  .nav-links {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) var(--light);
+  }
+
+  .nav-links::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .nav-links::-webkit-scrollbar-track {
+    background-color: var(--light);
+  }
+
+  .nav-links::-webkit-scrollbar-thumb {
+    background-color: var(--primary);
+    border-radius: 10px;
+  }
+}
+
+/* ئەنیمەیشنی زیاتر */
+@media (max-width: 768px) {
+  .nav-link {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  .nav-links.active .nav-link {
+    opacity: 1;
+    transform: translateX(0);
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .mobile-menu-ripple {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: rgba(82, 113, 255, 0.4);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: ripple 0.8s ease-out;
+    z-index: 1;
+  }
+
+  @keyframes ripple {
+    0% {
+      transform: scale(0);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(40);
+      opacity: 0;
+    }
+  }
+}
+
+/* دوگمەی بۆ سەرەوە */
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  background-color: var(--primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  font-size: 1.4rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 2px 10px rgba(82, 113, 255, 0.5);
+  z-index: 900;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background-color: var(--primary-light);
+  transform: scale(1.1) translateY(-3px);
+}
+
+/* زیادکردنی CSS بۆ چاککردنی ئەنیمەیشنی بەشەکان */
+.about-image, .about-text, .project-card, .report-card, 
+.timeline-item, .achievement-card, .contact, .hero-content, 
+.section-title {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.about-image.visible, .about-text.visible, .project-card.visible, 
+.report-card.visible, .timeline-item.visible, .achievement-card.visible, 
+.contact.visible, .hero-content.visible, .section-title.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* چاککردنی ستایلی پرۆجێکتەکان */
+.projects-part {
+  margin-bottom: 3rem;
+}
+
+.projects-part-title {
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+  position: relative;
+  padding-right: 1rem;
+}
+
+.projects-part-title:before {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 80%;
+  background-color: var(--primary);
+  border-radius: 2px;
+}
+
+.projects-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.project-card {
+  background-color: white;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.project-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid var(--light-dark);
+}
+
+.project-content {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-title {
+  font-size: 1.2rem;
+  color: var(--dark);
+  margin-bottom: 0.75rem;
+}
+
+.project-description {
+  color: var(--text-light);
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.project-tags {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.project-tag {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  background-color: rgba(82, 113, 255, 0.1);
+  color: var(--primary);
+  border-radius: 50px;
+}
+
+.project-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.project-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.project-link:hover {
+  color: var(--primary-light);
+  text-decoration: underline;
+}
+
+/* ستایلی ڕاپۆرتەکان */
+.reports-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.report-card {
+  background-color: white;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  height: 100%;
+}
+
+.report-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.report-content {
+  padding: 1.5rem;
+}
+
+.report-title {
+  font-size: 1.2rem;
+  color: var(--dark);
+  margin-bottom: 0.75rem;
+}
+
+.report-description {
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+.report-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+}
+
+.report-link:after {
+  content: '←';
+  margin-right: 0.5rem;
+  transition: var(--transition);
+}
+
+.report-link:hover {
+  color: var(--primary-light);
+}
+
+.report-link:hover:after {
+  transform: translateX(-5px);
+}
+
+/* ستایلی سێکشنەکان */
+.section {
+  padding: 6rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.section-title {
+  font-size: 2rem;
+  color: var(--dark);
+  margin-bottom: 2.5rem;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.5rem; 
+  text-align: center;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.section-title:after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: 2px;
+  transition: width 0.3s ease;
+  opacity: 0.5;
+}
+
+/* ستایلی بەرزکردنەوە */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 8rem 0 6rem;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  color: var(--text);
+  text-align: center;
+  z-index: 1;
+}
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+  animation: fade-in 1s ease forwards;
+  z-index: 2;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.hero-title {
+
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  font-weight: 700;
+  color: var(--primary);
+}
+.hero-subtitle {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary-light);
+  font-weight: 600;
+}
+.hero-description {
+  font-size: 1.2rem;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+  color: var(--secondary);
+  font-weight: 500;
+}
+.cta-buttons {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+}
+.btn {
+  padding: 0.8rem 2rem;
+
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+  box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+  color: white;
+  background: linear-gradient(-45deg, var(--primary), var(--accent));
+  text-align: center;
+}
+.btn-secondary {
+  background: white;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+
+
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    :root {
+      --primary: #4f46e5;
+      --primary-light: #6366f1;
+      --secondary: #334155;
+      --background: #f8fafc;
+      --text: #1e293b;
+      --light-text: #64748b;
+      --card-bg: #ffffff;
+      --accent: #8b5cf6;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans Arabic', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      position: relative;
+      color: var(--text);
+    }
+
+    .animated-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      animation: float 20s ease-in-out infinite alternate;
+    }
+
+    .blob:nth-child(1) {
+      width: 400px;
+      height: 400px;
+      background-color: var(--primary-light);
+      top: -100px;
+      left: -100px;
+      animation-delay: 0s;
+    }
+
+    .blob:nth-child(2) {
+      width: 300px;
+      height: 300px;
+      background-color: var(--accent);
+      bottom: -50px;
+      right: -50px;
+      animation-delay: -5s;
+    }
+
+    .blob:nth-child(3) {
+      width: 250px;
+      height: 250px;
+      background-color: #38bdf8;
+      top: 50%;
+      left: 30%;
+      animation-delay: -10s;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+      50% {
+        transform: translate(40px, 20px) scale(1.05);
+      }
+      100% {
+        transform: translate(-30px, -20px) scale(0.95);
+      }
+    }
+
+    .container {
+      max-width: 1200px;
+      width: 90%;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Header Styles */
+    #header {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 1000;
+      padding: 1rem 0;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+    }
+
+    #header.scrolled {
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      padding: 0.5rem 0;
+    }
+
+    #header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-link {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+      font-size: 1rem;
+    }
+
+    .nav-link:after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      right: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover:after {
+      width: 100%;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+    }
+
+    .mobile-menu {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      align-items: center;
+      min-height: 100vh;
+      padding: 8rem 0 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      animation: fade-in 1s ease forwards;
+    }
+
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .hero-subtitle {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+    }
+
+    .hero-description {
+      font-size: 1.2rem;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+      color: var(--secondary);
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: linear-gradient(-45deg, var(--primary), var(--accent));
+      color: white;
+      box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Common Section Styles */
+    .section {
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      text-align: center;
+      position: relative;
+      color: var(--text);
+    }
+
+    .section-title:after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      right: 50%;
+      transform: translateX(50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 2px;
+    }
+
+    /* About Section */
+    .about-content {
+      display: flex;
+      gap: 4rem;
+      align-items: center;
+      margin-top: 2rem;
+    }
+
+    .about-image {
+      flex: 1;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: all 0.8s ease;
+    }
+
+    .about-image.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .about-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .about-image:hover img {
+      transform: scale(1.05);
+    }
+
+    .about-text {
+      flex: 1;
+      opacity: 0;
+      transform: translateX(50px);
+      transition: all 0.8s ease;
+    }
+
+    .about-text.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .about-text p {
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+    }
+
+    .tech-stack {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .tech-icon {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      transition: all 0.3s ease;
+    }
+
+    .tech-icon:hover {
+      transform: translateY(-8px);
+    }
+
+    /* Projects Section */
+    .projects-part {
+      margin-bottom: 4rem;
+    }
+
+    .projects-part-title {
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      color: var(--primary);
+    }
+
+    .projects-wrapper {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .project-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .project-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .project-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .project-image {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .project-content {
+      padding: 1.5rem;
+    }
+
+    .project-title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .project-description {
+      color: var(--secondary);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .project-tag {
+      background: #eef2ff;
+      color: var(--primary);
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .project-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: all 0.3s ease;
+    }
+
+    .project-link:hover {
+      color: var(--accent);
+      transform: translateX(-5px);
+    }
+
+    /* Reports Section */
+    .reports-wrapper {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .report-card {
+      background: white;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      transition: all 0.5s ease;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .report-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .report-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .report-title {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .report-description {
+      color: var(--secondary);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .report-link {
+      display: inline-block;
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .report-link:hover {
+      color: var(--accent);
+      transform: translateX(-5px);
+    }
+
+    /* Experience Section */
+    .timeline {
+      position: relative;
+      margin: 2rem 0;
+    }
+
+    .timeline:before {
+      content: '';
+      position: absolute;
+      right: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #e2e8f0;
+      transform: translateX(50%);
+    }
+
+    .timeline-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3rem;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .timeline-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .timeline-content {
+      width: 45%;
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+
+    .timeline-content:before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 100%;
+      width: 20px;
+      height: 20px;
+      background: var(--primary);
+      border-radius: 50%;
+      transform: translateX(-10px);
+    }
+
+    .timeline-title {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .timeline-description {
+      color: var(--secondary);
+      line-height: 1.6;
+    }
+
+    .timeline-date {
+      width: 45%;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .timeline-item:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    .timeline-item:nth-child(even) .timeline-content:before {
+      right: 100%;
+      left: auto;
+      transform: translateX(10px);
+    }
+
+    /* Achievements Section */
+    .achievements {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .achievement-card {
+      background: white;
+      border-radius: 15px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      transition: all 0.5s ease;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .achievement-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .achievement-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .achievement-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .achievement-title {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    /* Contact Section */
+    .contact {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      padding: 3rem;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .contact.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .contact-title {
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      color: var(--text);
+    }
+
+    .contact-methods {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .contact-method {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.5rem;
+    }
+
+    .contact-icon {
+      font-size: 2rem;
+      color: var(--primary);
+    }
+
+    .contact-label {
+      font-weight: 600;
+      color: var(--secondary);
+    }
+
+    .contact-value a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .contact-value a:hover {
+      color: var(--accent);
+    }
+
+    /* CV Section */
+    .cv-download {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--text);
+      color: white;
+      padding: 3rem 0;
+      margin-top: 4rem;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .social-link {
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+      color: var(--primary-light);
+    }
+
+    .copyright {
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+
+    /* Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      left: 2rem;
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 1.5rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+      z-index: 900;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      background: var(--accent);
+      transform: translateY(-5px);
+    }
+
+    /* Animations */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      opacity: 0.3;
+    }
+
+    @keyframes particle-animation {
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.5;
+      }
+      90% {
+        opacity: 0.2;
+      }
+      100% {
+        transform: translateY(-100vh) translateX(20px);
+        opacity: 0;
+      }
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 992px) {
+      .hero-title {
+        font-size: 2.8rem;
+      }
+      
+      .about-content {
+        flex-direction: column;
+        gap: 3rem;
+      }
+      
+      .timeline:before {
+        right: 20px;
+        transform: none;
+      }
+      
+      .timeline-item, .timeline-item:nth-child(even) {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        margin-right: 40px;
+      }
+      
+      .timeline-content, .timeline-date {
+        width: 100%;
+      }
+      
+      .timeline-content:before {
+        right: auto;
+        left: -30px;
+        transform: none;
+      }
+      
+      .timeline-item:nth-child(even) .timeline-content:before {
+        right: auto;
+        left: -30px;
+        transform: none;
+      }
+      
+      .timeline-date {
+        text-align: right;
+        margin-bottom: 0.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.2rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.4rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .mobile-menu {
+        display: block;
+      }
+      
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 2rem;
+        flex-direction: column;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transform: translateY(-200%);
+        transition: transform 0.3s ease;
+      }
+      
+      .nav-links.active {
+        transform: translateY(0);
+      }
+      
+      .projects-wrapper {
+        grid-template-columns: 1fr;
+      }
+      
+      .contact {
+        padding: 2rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .cta-buttons {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+      
+      .reports-wrapper, .achievements {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="container">
+      <nav>
+        <a href="#" class="logo">ابراهیم حسین</a>
+        <div class="nav-links">
+          <a href="#about" class="nav-link">دەربارەی من</a>
+          <a href="#projects" class="nav-link">پڕۆژەکان</a>
+          <a href="#reports" class="nav-link">ڕاپۆرتەکان</a>
+          <a href="#experience" class="nav-link">ئەزموون</a>
+          <a href="#achievements" class="nav-link">دەستکەوتەکان</a>
+          <a href="#contact" class="nav-link">پەیوەندی</a>
+          <a href="#cv" class="nav-link">بینینی CV</a>
+
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="particles" id="particles"></div>
+    <div class="container">
+      <div class="hero-content">
+        <h1 class="hero-title">سڵاو،  بەخێربێن بۆ <span style="color: var(--primary);"> پۆرتفیلیۆی </span> من </h1>
+        <h2 class="hero-subtitle">گەشەپێدەری پڕۆگرام و شارەزای AI و ڕۆبۆتیک</h2>
+        <p class="hero-description">خوێندکاری ئەندازیاری کۆمپیوتەر لە زانکۆی لوبنانی فەڕەنسی. هەمیشە هەوڵ دەدەم سنوورەکانی زانست و تەکنەلۆژیا ببەزێنم و پڕۆژەی نوێ و داهێنەرانە پەرە پێبدەم.</p>
+        <div class="cta-buttons">
+          <a href="#projects" class="btn btn-primary">بینینی پڕۆژەکانم</a>
+          <a href="#contact" class="btn btn-secondary">پەیوەندیم پێوە بکە</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="section-title">دەربارەی من</h2>
+      <div class="about-content">
+        <div class="about-image">
+          <img src="IMG_7689.png" alt="ئیبراهیم حسین">
+        </div>
+        <div class="about-text">
+          <p>من خوێندکاری ئەندازیاری کۆمپیوتەر لە زانکۆی لوبنانی فەڕەنسی. ڕاستە من خوێندکارم بەڵام کەسێکی زۆر چالاکم هەم لە زانکۆ و هەم لە دەرەوەی زانکۆ.</p>
+          <p>من یاریدەدەری پڕۆژەکانی کڵەپی نایسەرم لە زانکۆکەم، کە کڵەپێکە لێوەی خوێندکاران دەتوانن پڕۆژەکانی بواری تەکنەلۆژیا دروست بکەن.</p>
+          <p>زمانەکانی پڕۆگرامسازی وەک Python, C++, MatLab دەزانم. هەروەها شارەزایی زۆر باشم لە HTML, CSS هەیە.</p>
+          <p>هەروەها حەزێکی زۆر زۆرم هەیە بۆ پەرەپێدانی AI و زانیاری زۆرم دەربارەی کۆکردۆتەوە.</p>
+          <div class="tech-stack">
+            <img src="python-127-svgrepo-com.png" alt="Python" class="tech-icon">
+            <img src="fi-hnsuxx-cpp.png" alt="C++" class="tech-icon">
+            <img src="ai-svgrepo-com.png" alt="AI" class="tech-icon">
+            <img src="robot-svgrepo-com.png" alt="Robotics" class="tech-icon">
+            <img src="html5-01-svgrepo-com.png" alt="HTML" class="tech-icon">
+            <img src="css3-01-svgrepo-com.png" alt="CSS" class="tech-icon">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- Projects Section -->
+<section class="section" id="projects">
+  <div class="container">
+    <h2 class="section-title">پڕۆژەکانم</h2>
+    
+    <!-- بەشی ١: ئەو پڕۆژانەی تەواوم کردوون -->
+    <div class="projects-part">
+      <h3 class="projects-part-title">١. ئەو پڕۆژانەی تەواوم کردوون</h3>
+
+
+      <div class="projects-wrapper">
+        <!-- Home System Project -->
+        <div class="project-card">
+          <img src="20241205_121612.jpg" alt="Home System" class="project-image">
+          <div class="project-content">
+            <h3 class="project-title">Home System</h3>
+            <p class="project-description">پڕۆژەیەکی هاردوێر کە لەڕێگای Arduino وە پەرەم پێداوە. بە یەکگرتنی پێنج پڕۆژەی بچوک، سیستەمی هۆشمەند دروست دەکات.</p>
+            <p class="project-description">
+              لەم پڕۆژەیەدا، پێنج پڕۆژەی بچووکمان لێکدا و سیستەمێکی یەکگرتوومان دروست کرد بە ناوی Home System. ئەم سیستەمە چەندین بەرکارهێنانی ماڵی هۆشمەند پێشکەش دەکات کە ژیانی ڕۆژانە ئاسانتر دەکات.
+              </p>
+
+            <div class="project-tags">
+              <span class="project-tag">Arduino</span>
+              <span class="project-tag">Hardware</span>
+              <span class="project-tag">DIY</span>
+            </div>
+            <div class="project-links">
+              <a href="https://imxoshnawm.github.io/Home_System/">وێب</a>
+              <a href="https://drive.google.com/file/d/1S5LTjVeIeDDolKnqigT_Qk2EaQMU3pJq/view?usp=drive_link" class="project-link">ڤیدیۆ</a>
+            </div>
+          </div>
+        </div>
+
+         <!-- water level monitoring system -->
+          <div class="project-card">
+            <img src="IMG_20250309_232800.jpg" alt="Home System" class="project-image">
+            <div class="project-content">
+              <h3 class="project-title">پرۆژەی چاودێری ئاستی ئاو
+              </h3>
+              <p class="project-description">لە کوردستان، زۆر جار کێشەی ئاومان هەیە. گەلێک جار تانکی ئاو بەتاڵ دەبێت بەبێ ئەوەی بزانین، یان زۆربەی کات لەزۆربەی ماڵەکان ئاوێکی زۆر بەفیڕۆ دەچێت.
+
+              </p>
+              <p class="project-description">
+                کاتێک ئاستی ئاو کەمتر لە ١٥٪ یان زیاتر لە ٨٠٪ بێت، پڕۆژەکە دەنگێک دەردەکات بۆ ئاگادارکردنەوەت.
+
+              </p>
+              <p class="project-description">
+                شاشەکە ڕێژەی ئاو و هێڵێک پیشان دەدات کە چەندە پڕە، ڕاستەوخۆ دەتوانیت ئاستی ئاو ببینیت.
+
+
+              </p>
+              <p class="project-description">
+                بە چەند هەنگاوێکی سادە دەتوانیت پڕۆژەکە دابمەزرێنیت و دەستبەجێ دەست بە کارکردن دەکات.
+
+
+
+              </p>
+              <div class="project-tags">
+                <span class="project-tag">Arduino</span>
+                <span class="project-tag">Hardware</span>
+                <span class="project-tag">DIY</span>
+              </div>
+              <div class="project-links">
+                <a href="https://imxoshnawm.github.io/fdcgfh/" class="project-link">وێب</a>
+              </div>
+            </div>
+          </div>
+
+
+
+        
+        <!-- School System Project -->
+        <div class="project-card">
+          <img src="Screenshot 2025-02-26 180608.png" alt="School System" class="project-image">
+          <div class="project-content">
+            <h3 class="project-title">School System</h3>
+            <p class="project-description">سیستەمێکی یەکپارچەیە بۆ بەڕێوەبردنی کاروباری قوتابخانە. لەم پڕۆژەیەدا، ئەرکی سەرەکیم دروستکردنی وێبی سەرەتای ناساندنی قوتابخانە و هەروەها وێبی چوونەژوورەوە (Log In) بوو. هەروەها، لینککردنی نێوان داتابەیس، وێب و لۆژیکەکانیشم ئەنجام دا.</p>
+            <p class="project-description">
+              سەرەڕای ئەوەی تەنها ئەندامێک بووم لە تیمەکەدا، توانیم یارمەتییەکی بەرچاو پێشکەش بکەم و ڕێنوێنی هاوڕێکانم بکەم لە چارەسەرکردنی کێشە ئاڵۆزەکاندا. ئەم پڕۆژەیە بۆ پڕۆژەی دەرچوونمان بوو لە وەرزی سێیەمی خوێندن
+              </p>
+            
+            <div class="project-tags">
+              <span class="project-tag">Web</span>
+              <span class="project-tag">Database link between html and logic</span>
+              <span class="project-tag">Database</span>
+
+              <span class="project-tag">Log In</span>
+            </div>
+            <div class="project-links">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- بەشی ٢: ئەو پڕۆژانەی کاریان لەسەر دەکەم -->
+    <div class="projects-part">
+      <h3 class="projects-part-title">٢. ئەو پڕۆژانەی کاریان لەسەر دەکەم</h3>
+
+      <div class="projects-wrapper">
+
+            
+        <!-- Hand Drones Project -->
+        <div class="project-card">
+          <img src="photo_2025-02-26_18-27-01.jpg" alt="Hand Drones" class="project-image">
+          <div class="project-content">
+            <h3 class="project-title">Hand Drones</h3>
+            <p class="project-description">ئەم پڕۆژەیە تایبەتمەندی جیاکەرەوەی هەیە لە پڕۆژەکانی تری درۆن بەم هۆکارانە:</p>
+            <p class="project-description"> درۆنەکە توانای دوورکەوتنەوەی زیاتر لە ١.٢ کیلۆمەتری هەیە</p>
+            <p class="project-description"> لەڕێگای دەستەوە کۆنترۆڵ دەکرێت بە تەکنەلۆژیای جایرۆ، نەک بە جۆیستیک کە ڕێگایەکی تەقلیدییە</p>
+            <p class="project-description">
+              هۆکاری تەواونەکردنی پڕۆژەکە تا ئێستا بریتییە لە نەبوونی پارچەی تایبەت لە بازاڕەکانی کوردستان و عێراقدا، بەتایبەت ESP و Motor 180. چاوەڕوانی ئەوەم کە یەکێک لە بازرگانەکانی بواری هاردوێری درۆن بیهێنێت تاوەکو بتوانم بیکڕم
+              </p>
+            <p class="project-description">لە ئێستادا، توانیومە جەستەی درۆنەکە دروست بکەم و کۆدەکەش ئامادەیە. هەروەها بەشێکی باشی هاردوێرەکەش تەواو بووە.</p>
+
+
+            
+            
+            <div class="project-tags">
+              <span class="project-tag">Drone</span>
+              <span class="project-tag">Hardware</span>
+            </div>
+            <div class="project-links">
+            </div>
+          </div>
+        </div>
+        <!-- Face Track Pro Project -->
+        <div class="project-card">
+          <img src="face-detection-1.jpg" alt="Face Track Pro" class="project-image">
+          <div class="project-content">
+            <h3 class="project-title">Face Track Pro</h3>
+            <p class="project-description">سیستەمێکی خۆکار بۆ قوتابیان و مامۆستایان کە بەکارهێنانی AI دروستکراوە بۆ تۆمارکردنی ئامادەبوونی.</p>
+            <p class="project-description">
+              ئەم سیستەمە جارێکیان تەواو کراوە، بەڵام بەدڵمان نەبوو چونکە لەڕێگەی ئامادەکراوی AI دروستمان کرد. ئێستا دەمانەوێت بە شێوەیەکی سەربەخۆ دووبارە پەرەی پێبدەینەوە و باشتری بکەین
+              </p>
+            <p class="project-description">
+              ئەم پڕۆژەیە سیستەمێکی خۆکارانەی ئامادەبوونی نێو پۆلە بۆ قوتابیان و مامۆستایان لەڕێگەی کامێرایەکەوە کە لە پۆلەکەدا دانراوە. سیستەمەکە بە خۆکاری ئامادەبوونی کەسەکان تۆمار دەکات
+              </p>
+            <p class="project-description">هەروەها پلانمان هەیە هەمان پڕۆژە بۆ کۆمپانیایەک جێبەجێ بکەین بۆ تۆمارکردنی ئامادەبوونی کارمەندان.</p>
+
+            <div class="project-tags">
+              <span class="project-tag">AI</span>
+              <span class="project-tag">Automation</span>
+            </div>
+            <div class="project-links">
+            </div>
+          </div>
+        </div>
+
+
+        <div class="project-card">
+          <img src="Fortune_Investing_01.webp" alt="Hand Drones" class="project-image">
+          <div class="project-content">
+            <h3 class="project-title"> Overall Portfolio</h3>
+            <p class="project-description">ئەمە وێبسایتێکە بۆ دروستکردنی پۆرتفۆلیۆ بەبێ پێویستیی زانینی پڕۆگرامینگ.</p>
+            <p class="project-description">
+              وەک سۆشیاڵ میدیای لینکدن وایە بۆ پیشاندانی کار و چالاکییەکانت، بەڵام جیاوازییەکەی ئەوەیە کە پڕۆفایلەکان گشتی نین. تەنها دەتوانیت لینکی وێبی پۆرتفۆلیۆکە بۆ کەسانی تر بنێریت و لەو ڕێگایەوە پڕۆفایلی پۆرتفۆلیۆکەت ببینن
+              </p>
+          
+
+            
+            
+            <div class="project-tags">
+              <span class="project-tag">Web Design</span>
+              <span class="project-tag">Programming</span>
+              <span class="project-tag">Portfolio</span>
+
+            </div>
+            <div class="project-links">
+            </div>
+          </div>
+        </div>
+
+
+
+
+        
+        <div class="project-card">
+          <img src="6440f9477c2a321f0dd6ab61_How Artificial Intelligence (AI) Is Used In Biometrics.jpg" alt="Hand Drones" class="project-image">
+          <div class="project-content">
+            <h3 class="project-title"> نووسینی کتێبێک دەربارەی زیرەکی دەستکرد (AI)</h3>
+            <p class="project-description">ئەم کتێبە لە سەرەتای دروستبوونی کۆمپیوتەرەوە تا دواترین پێشکەوتنەکانی بواری AI زانیاری پێشکەش دەکات.</p>
+            <p class="project-description">لە ئێستادا تەنها پێشەکییەکەی ئامادەیە بە شێوەیەکی دەستنووس.</p>
+
+            
+            
+            <div class="project-tags">
+              <span class="project-tag">Book</span>
+              <span class="project-tag">AI</span>
+
+            </div>
+            <div class="project-links">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- بەشی ٣: ئەو پڕۆژانەی کە تەنیا بیرۆکەن -->
+    <div class="projects-part">
+      <h3 class="projects-part-title">٣. ئەو پڕۆژانەی کە تەنیا بیرۆکەن</h3>
+
+      <div class="projects-wrapper">
+        <!-- Glove Talk Project -->
+        <div class="project-card">
+          <img src="Screenshot 2025-02-26 183648.png" alt="Glove Talk" class="project-image">
+          <div class="project-content">
+            <h3 class="project-title">Glove Talk</h3>
+            <p class="project-description">دەستەوانەی قسەکەر کە چارەسەری کێشەی قسەنەکردنی نابیستی و پەیوەندیدانی دەستەوانە بە دەنگ و نووسینە.</p>
+            <p class="project-description">ئەمە باشترین و خۆشەویستترین پڕۆژەی منە کە هەتا ئێستا بیرۆکەم بۆی هەبووە. زیاتر لە ٢ ساڵە پلانم بۆ داناوە، بەڵام بەهۆی زۆری بوجەی دروستکردنیەوە و سەپۆرت نەکردنی لەلایەن هیچ لایەنێکەوە، نەمتوانیوە جێبەجێی بکەم</p>
+            <p class="project-description">
+              سەرەتا دەمەوێت باسی ئەوە بکەم کە چۆن ئەم بیرۆکەیەم بۆ هات. من کچە خاڵێکم هەیە کە تەمەنی ٢٤ ساڵە و نابیستە (کەڕ و لاڵە). سەرەڕای تەمەنەکەی، تا ئێستا نەیتوانیوە بە تەواوی لەگەڵ کۆمەڵگا و دەوروبەری خۆی بگونجێت. تەنها خێزانەکەی لێی تێدەگەن، ئەمەش بۆتە هۆی گۆشەگیربوونی
+              </p>
+            <p class="project-description">
+              بەپێی دوایین ئامارەکان، لە هەرێمی کوردستان و عێراق نزیکەی ٢٥٠,٠٠٠ کەس هەن کە کێشەی نابیستی و قسەنەکردنیان هەیە. لەم ژمارەیە، نزیکەی ٤٠٪ یان منداڵ و گەنجن کە لە قۆناغی خوێندن یان کارکردندان. بەداخەوە، زیاتر لە ٧٠٪ ی ئەم کەسانە ناتوانن کار بدۆزنەوە یان درێژە بە خوێندن بدەن، سەرەکیترین هۆکاریش کێشەی پەیوەندیکردنە
+              </p>
+            <p class="project-description">
+              من دەمەوێت ئەم کێشەیە چارەسەر بکەم. بۆیە بیرۆکەی Glove Talk-م داهێنا، کە دەستەوانەیەکی قسەکەرە. کاتێک کەسێکی نابیست لەڕێگەی ئاماژەی دەستەوە قسە دەکات، ئەم دەستەوانەیە ئاماژەکان دەگۆڕێت بۆ دەنگ و نووسین. بەم شێوەیە، ئەو کەسە دەتوانێت راستەوخۆ لەگەڵ هەر کەسێکی ئاسایی پەیوەندی بکات
+              </p>
+            <p class="project-description">ئەم دەستەوانەیە بەم شێوەیە کار دەکات:</p>
+            <p class="project-description">- کۆمپیوتەرێکی بچووک بەناوی Raspberry Pi بەکاردەهێنین کە قەبارەکەی بەقەد کارتێکی بزنس دەبێت. ئەم کۆمپیوتەرە بچووکە وەک مێشکی ئامێرەکە کار دەکات.</p>
+            <p class="project-description">- هەستەوەری تایبەت بەناوی Flex Sensors بەکاردەهێنین کە دەتوانن جووڵەی پەنجەکان بخوێننەوە.</p>
+            <p class="project-description">- شاشەیەکی LCD و سپیکەرێک بۆ پیشاندانی نووسین و دەرکردنی دەنگ.</p>
+            <p class="project-description">- پارچەیەکی ADS1115 بۆ وەرگرتنی ئاماژە کارەباییەکان بە وردی.</p>
+            <p class="project-description">- هەستەوەری MPU 6050 بۆ خوێندنەوەی جووڵەی دەست لە هەموو ئاراستەیەکدا.</p>
+            <p class="project-description">
+              کاتێک کەسێک دەستەوانەکە لەدەست دەکات و دەستی دەجووڵێنێت، هەستەوەرەکان ئەم جووڵانە دەخوێننەوە و دەیاننێرن بۆ Raspberry Pi. لەوێ، بەرنامەیەکی تایبەت لێکدانەوە بۆ جووڵەکان دەکات و دەیانگۆڕێت بۆ وشە و رستە. دواتر ئەم وشە و رستانە لەسەر شاشەکە دەردەکەون و لە رێگەی سپیکەرەکەوە دەبیسترێن
+              </p>
+
+            <div class="project-tags">
+              <span class="project-tag">Robotics</span>
+              <span class="project-tag">AI</span>
+              <span class="project-tag">Programming</span>
+
+            </div>
+
+          </div>
+        </div>
+
+
+
+
+        
+        
+        <div class="project-card">
+          <img src="ai-chatbot-app.png" alt="Hand Drones" class="project-image">
+          <div class="project-content">
+            <h3 class="project-title">  وەڵامدەرەوەی AI خۆکارانە بۆ سۆشیال میدیاکانی کۆمپانیاکان</h3>
+            <p class="project-description"> ئەم پڕۆژەیە دەبوایە ئێستا لە بەشی "ئەو پڕۆژانەی کاریان لەسەر دەکەم" بووایە، بەڵام بەهۆی خراپی کۆمپیوتەرەکانمانەوە نەمانتوانی دەستپێبکەین.</p>
+            <p class="project-description"> ئەم پڕۆژەیە لەڕێگەی AI کە خۆمان پەرەی پێدەدەین و فێری دەکەین، وەڵامی کڕیارەکانی کۆمپانیایەکی دیاریکراو دەداتەوە بەپێی ئەو زانیاریانەی کە فێری دەکەین. سیستەمەکە دەتوانێت وەڵامی پرسیارەکان دەربارەی زانیاری کۆمپانیا و نرخی کاڵاکان بداتەوە.</p>
+
+
+
+            
+            
+            <div class="project-tags">
+              <span class="project-tag">Programming</span>
+              <span class="project-tag">AI</span>
+              <span class="project-tag">Logic</span>
+
+              <span class="project-tag">Chat Bot</span>
+
+            </div>
+            <div class="project-links">
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+        
+        
+        <div class="project-card">
+          <img src="food-delivery-5217579_960_720.webp" alt="Hand Drones" class="project-image">
+          <div class="project-content">
+            <h3 class="project-title">  خواردنی دیلیڤەری</h3>
+            <p class="project-description"> ئەمە پڕۆژەی وێبێکە بۆ چێشتخانەکان کە لەڕێگەی QR code کە لە دەرەوەی خواردنگەکە یان لە سۆشیال میدیای خواردنگەکە دادەنرێت، بەکاردێت.</p>
+            <p class="project-description"> تیایدا کڕیار دەتوانێت داوای خواردن لەو خواردنگەیە بکات. دواتر ئەو داواکارییەی کە کڕیاری خواردنگەکە کردوویەتی لەڕێگەی WhatsApp وە دەچێت بۆ خاوەن خواردنگەکە وە شوێنی (لۆکەیشن) ئەو کڕیارەشی بۆ دەچێت.</p>
+
+
+
+            
+            
+            <div class="project-tags">
+              <span class="project-tag">Web Design</span>
+              <span class="project-tag">Programming</span>
+
+            </div>
+            <div class="project-links">
+            </div>
+          </div>
+        </div>
+
+
+
+        <!-- دەتوانیت ئەو پڕۆژانەی تریش کە بیرۆکەنت زیاد بکەیت -->
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+  <!-- Reports Section -->
+  <section class="section" id="reports">
+    <div class="container">
+      <h2 class="section-title">ڕاپۆرتەکان</h2>
+      <div class="reports-wrapper">
+        <div class="report-card">
+          <div class="report-content">
+            <h3 class="report-title">چۆن بە دروستی AI بەکاربهێنم</h3>
+            <p class="report-description">ڕاپۆرتێکی تایبەتی دەربارەی بەکاربردنی AI بۆ چالاکیەکانی کۆمپانیاکان.</p>
+            <a href="https://sites.google.com/view/how-do-i-use-ai-correctly/choice-of-language" class="report-link">بینینی ڕاپۆرت</a>
+          </div>
+        </div>
+        <div class="report-card">
+          <div class="report-content">
+            <h3 class="report-title">فوڵ ستاک دیڤیلۆپەر چییە</h3>
+            <p class="report-description">ڕاپۆرتێکی تایبەتی دەربارەی فول ستاک دیڤیلۆپەر.</p>
+            <a href="https://sites.google.com/view/howdoiuseaicorrectly/choice-of-language" class="report-link">بینینی ڕاپۆرت</a>
+          </div>
+        </div>
+        <div class="report-card">
+          <div class="report-content">
+            <h3 class="report-title">Radar Ultrasonic</h3>
+            <p class="report-description">ڕاپۆرتێکی تایبەتی دەربارەی کارکردنی Radar و Ultrasonic.</p>
+            <a href="https://sites.google.com/view/radar-altrasonic-post/home" class="report-link">بینینی ڕاپۆرت</a>
+          </div>
+        </div>
+      </div>
+      <p style="margin-top:1rem;">جگە لەو سێ ڕاپۆرتەی سەرەوە، کۆمەڵێک ڕاپۆرتی زۆر زیاترم هەیە لە گروپەکانی یانەی هەنجیر، یانەی شیکار و Deep Files.</p>
+
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section class="section" id="experience">
+    <div class="container">
+      <h2 class="section-title">ئەزموونی کارکردنم</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3 class="timeline-title">کاری دەنگی بۆ ئەپڵیکەیشنی دەرگاکان</h3>
+            <p class="timeline-description">بەرهەم هێنانی کتێبی دەنگی بە نزیکەی ٣٠ کتێب لە ماوەی کەمتر لە ٤٥ ڕۆژدا.</p>
+          </div>
+          <div class="timeline-date">2024</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3 class="timeline-title">Mars Labs / Diwaxan Podcast</h3>
+            <p class="timeline-description">بەرهەم هێنانی ناوەڕۆکی ڤیدیۆی ڤیدیۆ گرافی و کارکردن لە تیمەکانی HITX.</p>
+          </div>
+          <div class="timeline-date">2024</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Achievements Section -->
+  <section class="section" id="achievements">
+    <div class="container">
+      <h2 class="section-title">دەستکەوتەکانم</h2>
+      <div class="achievements">
+        <div class="achievement-card">
+          <div class="achievement-icon">🏆</div>
+          <h3 class="achievement-title">پلەی یەکەم لە پاڵەوانی بۆکسێنی عێراق</h3>
+          
+        </div>
+        <div class="achievement-card">
+          <div class="achievement-icon">🏆</div>
+          <h3 class="achievement-title">پلەی یەکەم لە پاڵەوانی بۆکسێنی کوردستان</h3>
+        </div>
+        <div class="achievement-card">
+          <div class="achievement-icon">🏆</div>
+          <h3 class="achievement-title">تاقیکردنەوەی سایبەری CTF لە HTB</h3>
+          <p class="report-description">توانیم 31 فڵاگ بەدەست بهێنم و زانکۆکەم بهێنمە پلەی یەکەم لە زانکۆکانی عێڕاق </p>
+
+        </div>
+        <div class="achievement-card">
+          <div class="achievement-icon">🏆</div>
+          <h3 class="achievement-title">Mastered Functions in C++ on Code Signal</h3>
+        </div>
+        <div class="achievement-card">
+          <div class="achievement-icon">🏆</div>
+          <h3 class="achievement-title">پلەی 7 لە تاقیکردنەوەی CodeX</h3>
+          <p class="report-description">ئەم تاقیکرردنەوەیە لەسەر ئاستی هەموو عێڕاق بوو</p>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section" id="contact">
+    <div class="container">
+      <h2 class="section-title">پەیوەندی کردن</h2>
+      <div class="contact">
+        <h3 class="contact-title">پەیوەندی بکە</h3>
+        <div class="contact-methods">
+          <div class="contact-method">
+            <div class="contact-icon">🔗</div>
+            <div class="contact-label">لینکدن</div>
+            <div class="contact-value">
+              <a href="https://www.linkedin.com/in/ibrahim-hussein-b080712b7/" target="_blank">Ibrahim Hussein</a>
+            </div>
+          </div>
+          <div class="contact-method">
+            <div class="contact-icon">📧</div>
+            <div class="contact-label">ئیمێڵ</div>
+            <div class="contact-value">
+              <a href="https://mail.google.com/mail/u/1/#search/hamasuan%40gmail.com" target="_blank">hamasuan@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-method">
+            <div class="contact-icon">📱</div>
+            <div class="contact-label">ژمارە مۆبایل</div>
+            <div class="contact-value">07507985953</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CV Section -->
+  <section class="section" id="cv">
+    <div class="container">
+      <h2 class="section-title">بینینی CV</h2>
+      <div class="cv-download">
+       
+        <a href="ibrahim hussein assad CV - Copy.pdf" class="btn btn-secondary" target="_blank">
+          بینینی CV لە وێب
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/ibrahim-hussein-b080712b7/" class="social-link" target="_blank">LinkedIn</a>
+          <a href="https://mail.google.com/mail/u/1/#search/hamasuan%40gmail.com" class="social-link" target="_blank">Email</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <a href="#home" class="back-to-top" id="backToTop">↑</a>
+
+  <script>
+   // Back to Top and header scroll effect
+window.addEventListener('scroll', function() {
+  const header = document.getElementById('header');
+  const backToTop = document.getElementById('backToTop');
+  if (window.scrollY > 100) {
+    header.classList.add('scrolled');
+    backToTop.classList.add('visible');
+  } else {
+    header.classList.remove('scrolled');
+    backToTop.classList.remove('visible');
+  }
+});
+
+// Intersection Observer for element animations
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+    }
+  });
+});
+
+// ئەم لاینە لە کۆدەکەتدا تەنها بۆ '.project-card' و '.report-card' و ... بوو
+// بۆیە گۆڕانکاری لەسەر بکە و '.about-image' و '.about-text'یش زیاد بکە:
+document.querySelectorAll(
+  '.about-image, .about-text, .project-card, .report-card, .timeline-item, .achievement-card, .contact'
+).forEach(el => {
+  observer.observe(el);
+});
+
+
+
+
+  </script>
+<script>
+// مێنیوی مۆبایل - نەسخەی هاوچەرخ
+document.addEventListener('DOMContentLoaded', function() {
+  // دروستکردنی دوگمەی مێنیوی مۆبایل
+  const mobileMenu = document.createElement('div');
+  mobileMenu.className = 'mobile-menu-button';
+  mobileMenu.innerHTML = '<span class="menu-icon">☰</span>';
+  document.querySelector('nav').appendChild(mobileMenu);
+  
+  // لیستی لینکەکان
+  const navLinks = document.querySelector('.nav-links');
+  const menuIcon = mobileMenu.querySelector('.menu-icon');
+  
+  // زیادکردنی هێدەر بۆ ناو مێنیو
+  const menuHeader = document.createElement('div');
+  menuHeader.className = 'nav-menu-header';
+  menuHeader.innerHTML = '<span class="menu-logo">ابراهیم حسین</span>';
+  navLinks.prepend(menuHeader);
+  
+  // زیادکردنی ئایکۆن بۆ هەر لینکێک
+  addIconsToLinks();
+  
+  // پاراستنی دۆخی مێنیو
+  let isAnimating = false;
+  
+  // دوگمەی مێنیو کاتێک کلیکی لەسەر دەکرێت
+  mobileMenu.addEventListener('click', function(e) {
+    e.stopPropagation();
+    
+    // ئەنیمەیشنی دوگمەی کلیککردن
+    createRippleEffect(e);
+    
+    if (!isAnimating) {
+      toggleMenu();
+    }
+  });
+  
+  // ئەنیمەیشنی لینکەکان
+  document.querySelectorAll('.nav-links .nav-link').forEach((link, index) => {
+    // داخستنی مێنیو کاتێک کلیک لەسەر لینکێک دەکرێت
+    link.addEventListener('click', function(e) {
+      if (window.innerWidth <= 768) {
+        // لەسەرخۆ مێنیوکە دابخە دوای 400ms
+        setTimeout(() => {
+          if (!isAnimating) {
+            closeMenu();
+          }
+        }, 400);
+      }
+    });
+  });
+  
+  // داخستنی مێنیو کاتێک کلیک لە هەر شوێنێکی پەڕەکە دەکرێت
+  document.addEventListener('click', function(e) {
+    if (navLinks.classList.contains('active') && 
+        !e.target.closest('.nav-links') && 
+        !e.target.closest('.mobile-menu-button') &&
+        !isAnimating) {
+      closeMenu();
+    }
+  });
+  
+  // فەنکشنی ڕیپڵ ئیفێکت بۆ دوگمەی مێنیو
+  function createRippleEffect(event) {
+    const button = event.currentTarget;
+    
+    // ئەگەر مۆبایل بوو، ڕیپڵ ئیفێکت دروست بکە
+    if (window.innerWidth <= 768) {
+      const ripple = document.createElement('span');
+      ripple.className = 'mobile-menu-ripple';
+      
+      const rect = button.getBoundingClientRect();
+      
+      ripple.style.left = `${event.clientX - rect.left}px`;
+      ripple.style.top = `${event.clientY - rect.top}px`;
+      
+      button.appendChild(ripple);
+      
+      setTimeout(() => {
+        ripple.remove();
+      }, 800);
+    }
+  }
+  
+  // فەنکشنی کردنەوە و داخستنی مێنیو
+  function toggleMenu() {
+    if (navLinks.classList.contains('active')) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  }
+  
+  // فەنکشنی کردنەوەی مێنیو
+  function openMenu() {
+    isAnimating = true;
+    
+    // لابردنی کلاسی closing ئەگەر هەبێت
+    navLinks.classList.remove('closing');
+    navLinks.classList.add('active');
+    
+    // ئەنیمەیشنێکی لەسەرخۆتر بۆ گۆڕینی ئایکۆنەکە
+    menuIcon.style.transform = 'rotate(90deg)';
+    
+    setTimeout(() => {
+      menuIcon.textContent = '✕';
+      menuIcon.style.transform = 'rotate(0deg)';
+    }, 300);
+    
+    // دەستپێکردنی ئەنیمەیشن بۆ لینکەکان
+    animateLinks(true);
+    
+    // دەستنیشانکردنی نەهێشتنی سکرۆڵ کردن لە پەڕەکە
+    document.body.style.overflow = 'hidden';
+    
+    // دوای تەواوبوونی ئەنیمەیشن
+    setTimeout(() => {
+      isAnimating = false;
+    }, 800);
+  }
+  
+  // فەنکشنی داخستنی مێنیو
+  function closeMenu() {
+    isAnimating = true;
+    
+    // زیادکردنی کلاسی closing بۆ ئەنیمەیشنی تایبەت
+    navLinks.classList.add('closing');
+    
+    // دەستپێکردنی ئەنیمەیشنی داخستنی لینکەکان
+    animateLinks(false);
+    
+    // ئەنیمەیشنی گۆڕینەوەی ئایکۆن
+    menuIcon.style.transform = 'rotate(-90deg)';
+    
+    setTimeout(() => {
+      menuIcon.textContent = '☰';
+      menuIcon.style.transform = 'rotate(0deg)';
+      
+      // لابردنی کلاسی active دوای تەواوبوونی ئەنیمەیشن
+      navLinks.classList.remove('active');
+      navLinks.classList.remove('closing');
+      
+      // پێدانی ڕێگە بە سکرۆڵ کردن
+      document.body.style.overflow = '';
+      
+      isAnimating = false;
+    }, 500);
+  }
+  
+  // فەنکشنی ئەنیمەیشنی لینکەکان
+  function animateLinks(isOpening) {
+    const links = document.querySelectorAll('.nav-links .nav-link');
+    
+    links.forEach((link, index) => {
+      // ڕەشکردنەوەی ستایلەکانی پێشوو
+      link.style.transition = '';
+      
+      if (isOpening) {
+        // ئەنیمەیشنی کرانەوە - لەسەرخۆتر
+        link.style.opacity = '0';
+        link.style.transform = 'translateX(20px)';
+        
+        setTimeout(() => {
+          link.style.transition = `all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${0.15 + index * 0.07}s`;
+          link.style.opacity = '1';
+          link.style.transform = 'translateX(0)';
+        }, 100);
+      } else {
+        // ئەنیمەیشنی داخستن - لەسەرخۆتر
+        link.style.transition = `all 0.4s cubic-bezier(0.55, 0.085, 0.68, 0.53) ${0.05 + (links.length - index - 1) * 0.04}s`;
+        link.style.opacity = '0';
+        link.style.transform = 'translateX(10px)';
+      }
+    });
+  }
+  
+  // فەنکشنی زیادکردنی ئایکۆن بۆ لینکەکان
+  function addIconsToLinks() {
+    const icons = {
+      'دەربارەی من': '👤',
+      'پڕۆژەکان': '🔧',
+      'ڕاپۆرتەکان': '📊',
+      'ئەزموون': '⚙️',
+      'دەستکەوتەکان': '🏆',
+      'پەیوەندی': '📞',
+      'بینینی CV': '📄'
+    };
+    
+    document.querySelectorAll('.nav-links .nav-link').forEach(link => {
+      const text = link.textContent.trim();
+      const icon = icons[text] || '🔗';
+      
+      // زیادکردنی ئایکۆن بە شێوەیەکی مۆدێرن
+      const iconSpan = document.createElement('span');
+      iconSpan.className = 'nav-icon';
+      iconSpan.textContent = icon;
+      iconSpan.style.marginLeft = '10px';
+      iconSpan.style.fontSize = '1.1rem';
+      
+      link.insertBefore(iconSpan, link.firstChild);
+    });
+  }
+  
+  // لەکاتی گۆڕینی قەبارەی پەنجەرە، ئەگەر گەورە بوو، مێنیوی مۆبایل دابخە
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
+      // لابردنی کلاسی active بەبێ ئەنیمەیشن
+      navLinks.classList.remove('active');
+      navLinks.classList.remove('closing');
+      menuIcon.textContent = '☰';
+      menuIcon.style.transform = 'rotate(0deg)';
+      document.body.style.overflow = '';
+      
+      // لابردنی ستایلی لینکەکان
+      document.querySelectorAll('.nav-links .nav-link').forEach(link => {
+        link.style.opacity = '';
+        link.style.transform = '';
+        link.style.transition = '';
+      });
+    }
+  });
+  
+  // بۆ سکرۆڵ کردنی نەرم کاتێک کلیک لەسەر لینکەکان دەکرێت
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      const targetId = this.getAttribute('href');
+      
+      if (targetId === '#') return; // ئەگەر هاش بوو بەتەنها
+      
+      const targetElement = document.querySelector(targetId);
+      
+      if (targetElement) {
+        // سکرۆڵکردنی نەرم
+        window.scrollTo({
+          top: targetElement.offsetTop - 70, // لەبەرچاوگرتنی هەدەر
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+});
+
+// سکرۆڵ ئیفێکت بۆ هەدەر و دوگمەی بۆ سەرەوە
+window.addEventListener('scroll', function() {
+  const header = document.getElementById('header');
+  const backToTop = document.getElementById('backToTop');
+  
+  if (window.scrollY > 100) {
+    header.classList.add('scrolled');
+    backToTop.classList.add('visible');
+  } else {
+    header.classList.remove('scrolled');
+    backToTop.classList.remove('visible');
+  }
+});
+
+// Intersection Observer بۆ ئەنیمەیشنی ئیلێمێنتەکان
+const elementObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      
+      // لابردنی ئۆبزێرڤەر دوای نیشاندانی ئیلێمێنت
+      elementObserver.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.15, // کاتێک بەلانی کەم 15% ی ئیلێمێنتەکە دەردەکەوێت
+  rootMargin: '0px 0px -10% 0px' // کەمێک پێش دەرکەوتنی تەواو دەست بە ئەنیمەیشن بکات
+});
+
+// چاودێریکردنی هەموو ئیلێمێنتە گرنگەکان بۆ ئەنیمەیشن
+document.querySelectorAll(
+  '.about-image, .about-text, .project-card, .report-card, .timeline-item, .achievement-card, .contact, .hero-content, .section-title'
+).forEach(el => {
+  elementObserver.observe(el); // گۆڕاوەکە لە observer بۆ elementObserver گۆڕاوە
+});
+  </script>
+  
+  
+</body>
+</html>

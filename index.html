@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ku">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ئیبراهیم حسین | هەڵبژاردنی زمان</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap">
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-light: #6366f1;
+      --secondary: #334155;
+      --background: #f8fafc;
+      --text: #1e293b;
+      --light-text: #64748b;
+      --card-bg: #ffffff;
+      --accent: #8b5cf6;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans Arabic', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .animated-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      animation: float 20s ease-in-out infinite alternate;
+    }
+
+    .blob:nth-child(1) {
+      width: 400px;
+      height: 400px;
+      background-color: var(--primary-light);
+      top: -100px;
+      left: -100px;
+      animation-delay: 0s;
+    }
+
+    .blob:nth-child(2) {
+      width: 300px;
+      height: 300px;
+      background-color: var(--accent);
+      bottom: -50px;
+      right: -50px;
+      animation-delay: -5s;
+    }
+
+    .blob:nth-child(3) {
+      width: 250px;
+      height: 250px;
+      background-color: #38bdf8;
+      top: 50%;
+      left: 30%;
+      animation-delay: -10s;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+      50% {
+        transform: translate(40px, 20px) scale(1.05);
+      }
+      100% {
+        transform: translate(-30px, -20px) scale(0.95);
+      }
+    }
+
+    .container {
+      max-width: 900px;
+      width: 90%;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      padding: 3rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transform: translateY(0);
+      animation: fade-in 1s ease-out forwards;
+    }
+
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .logo-container {
+      margin-bottom: 1.5rem;
+    }
+
+    .logo {
+      width: 80px;
+      height: 80px;
+      background-color: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      color: white;
+      font-size: 2rem;
+      font-weight: bold;
+      box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+      animation: pulse 3s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.5);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(79, 70, 229, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(79, 70, 229, 0);
+      }
+    }
+
+    .hero-title {
+      font-size: 2.4rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .sub-title {
+      color: var(--light-text);
+      margin-bottom: 3rem;
+      font-size: 1.2rem;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .lang-btn {
+      padding: 0;
+      width: 220px;
+      height: 200px;
+      border-radius: 18px;
+      background: var(--card-bg);
+      border: none;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lang-btn:hover {
+      transform: translateY(-12px) scale(1.03);
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .lang-btn:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+      transform-origin: left;
+    }
+
+    .lang-btn:hover:before {
+      transform: scaleX(1);
+    }
+
+    
+
+    
+
+    .lang-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .lang-label {
+      font-size: 1.5rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .lang-sub {
+      font-size: 1rem;
+      color: var(--light-text);
+    }
+
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      opacity: 0.3;
+    }
+
+    @keyframes particle-animation {
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.5;
+      }
+      90% {
+        opacity: 0.2;
+      }
+      100% {
+        transform: translateY(-100vh) translateX(20px);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 2rem;
+      }
+      
+      .hero-title {
+        font-size: 1.8rem;
+      }
+      
+      .btn-group {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .lang-btn {
+        width: 100%;
+        max-width: 280px;
+        height: 160px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="animated-bg">
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob"></div>
+  </div>
+  
+  <div class="particles" id="particles"></div>
+  
+  <div class="container">
+    <div class="logo-container">
+      <div class="logo">IH</div>
+    </div>
+    
+    <h1 class="hero-title">
+      بەخێربێن بۆ پۆرتفۆلیۆ
+      <div class="sub-title">تکایە زمانەکەت هەڵبژێرە | Please choose your language</div>
+    </h1>
+
+    <div class="btn-group">
+      <a href="index_ku.html" class="lang-btn">
+       
+        <div class="lang-text">
+          <span class="lang-label">کوردی</span>
+          <span class="lang-sub">Kurdish</span>
+        </div>
+      </a>
+
+      <a href="index_en.html" class="lang-btn">
+      
+        <div class="lang-text">
+          <span class="lang-label">ئینگلیزی</span>
+          <span class="lang-sub">English</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Create floating particles
+    const particlesContainer = document.getElementById('particles');
+    const particleCount = 20;
+    
+    for (let i = 0; i < particleCount; i++) {
+      createParticle();
+    }
+    
+    function createParticle() {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      
+      // Random position
+      const posX = Math.random() * window.innerWidth;
+      const posY = Math.random() * window.innerHeight;
+      
+      // Random size
+      const size = Math.random() * 4 + 2;
+      
+      // Random color
+      const colors = ['#4f46e5', '#8b5cf6', '#38bdf8'];
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      
+      // Random animation duration
+      const duration = Math.random() * 15 + 15;
+      
+      particle.style.left = `${posX}px`;
+      particle.style.top = `${posY}px`;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.backgroundColor = color;
+      particle.style.animation = `particle-animation ${duration}s linear infinite`;
+      
+      particlesContainer.appendChild(particle);
+    }
+    
+    // Add hover animation to language buttons
+    const langButtons = document.querySelectorAll('.lang-btn');
+    
+    langButtons.forEach(btn => {
+      btn.addEventListener('mouseenter', () => {
+        const flagContainer = btn.querySelector('.flag-container');
+        flagContainer.style.transform = 'scale(1.1) rotate(5deg)';
+        setTimeout(() => {
+          flagContainer.style.transform = 'scale(1.1) rotate(-5deg)';
+        }, 150);
+        setTimeout(() => {
+          flagContainer.style.transform = 'scale(1.1) rotate(0)';
+        }, 300);
+      });
+    });
+  </script>
+</body>
+</html>
