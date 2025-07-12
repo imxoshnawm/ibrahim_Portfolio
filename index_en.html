@@ -9,6 +9,7 @@
                 maximum-scale=1.0, 
                 user-scalable=no,
                 viewport-fit=cover">
+                
   <title>Ibrahim Hussein | Programmer and AI &amp; Robotics Expert</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -706,7 +707,46 @@ nav {
 
 
 
+    .section-3d {
+      position: relative;
+      overflow: hidden;
+    }
 
+    .section-3d-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.5; /* زیادکردنی ڕێژەی بینین */
+      pointer-events: none; /* ڕێگە نادەن کلیک لەسەر بکرێت */
+    }
+
+    /* چاککردنی پێوانە */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      /* لەسەر مۆبایل 3D نیشان نادەین */
+      .section-3d-canvas {
+        display: none;
+      }
+    }
+
+    /* زیادکردنی تاریکی زیاتر بۆ خوێندنەوەی ئاسان */
+    .section-3d-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    /* چاککردنی بەشی پەیوەندی */
+    .contact {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 2rem;
+      border-radius: 20px;
+    }
 
 
 
@@ -1625,10 +1665,10 @@ nav {
   </header>
 
   <!-- Hero Section -->
-  <section class="hero" id="home">
-    <div class="particles" id="particles"></div>
+  <section class="hero section-3d" id="home">
+    <div class="section-3d-canvas" id="hero3d"></div>
     <div class="container">
-      <div class="hero-content">
+      <div class="hero-content section-3d-content">
         <h1 class="hero-title">Hello, Welcome to <span style="color: var(--primary);">My Portfolio</span></h1>
         <h2 class="hero-subtitle">Software Developer & AI/Robotics Expert</h2>
         <p class="hero-description">I am a Computer Engineering student at a French university. I constantly strive to push the boundaries of science and technology and deliver innovative projects.</p>
@@ -1641,8 +1681,9 @@ nav {
   </section>
 
   <!-- About Section -->
-  <section class="section" id="about">
-    <div class="container">
+    <section class="section section-3d" id="about">
+    <div class="section-3d-canvas" id="about3d"></div>
+    <div class="container section-3d-content">
       <h2 class="section-title">About Me</h2>
       <div class="about-content">
         <div class="about-image">
@@ -1667,8 +1708,9 @@ nav {
   </section>
 
   <!-- Projects Section -->
-  <section class="section" id="projects">
-    <div class="container">
+  <section class="section section-3d" id="projects">
+    <div class="section-3d-canvas" id="projects3d"></div>
+    <div class="container section-3d-content">
       <h2 class="section-title">My Projects</h2>
       
       <!-- Section 1: Completed Projects -->
@@ -1876,8 +1918,9 @@ nav {
   </section>
 
   <!-- Reports Section -->
-  <section class="section" id="reports">
-    <div class="container">
+  <section class="section section-3d" id="reports">
+    <div class="section-3d-canvas" id="reports3d"></div>
+    <div class="container section-3d-content">
       <h2 class="section-title">Reports</h2>
       <div class="reports-wrapper">
         <div class="report-card">
@@ -1907,8 +1950,9 @@ nav {
   </section>
 
   <!-- Experience Section -->
-  <section class="section" id="experience">
-    <div class="container">
+  <section class="section section-3d" id="experience">
+    <div class="section-3d-canvas" id="experience3d"></div>
+    <div class="container section-3d-content">
       <h2 class="section-title">Experience</h2>
       <div class="timeline">
         <div class="timeline-item">
@@ -1930,8 +1974,9 @@ nav {
   </section>
 
   <!-- Achievements Section -->
-  <section class="section" id="achievements">
-    <div class="container">
+  <section class="section section-3d" id="achievements">
+    <div class="section-3d-canvas" id="achievements3d"></div>
+    <div class="container section-3d-content">
       <h2 class="section-title">Achievements</h2>
       <div class="achievements">
         <div class="achievement-card">
@@ -1961,8 +2006,10 @@ nav {
   </section>
 
   <!-- Contact Section -->
-  <section class="section" id="contact">
-    <div class="container">
+  <section class="section section-3d" id="contact">
+    <div class="section-3d-canvas" id="contact3d"></div>
+    <div class="container section-3d-content">
+
       <h2 class="section-title">Get in Touch</h2>
       <div class="contact">
         <h3 class="contact-title">Contact</h3>
@@ -1992,8 +2039,9 @@ nav {
   </section>
   
   <!-- CV Section -->
-  <section class="section" id="cv">
-    <div class="container">
+  <section class="section section-3d" id="cv">
+    <div class="section-3d-canvas" id="cv3d"></div>
+    <div class="container section-3d-content">
       <h2 class="section-title">View CV</h2>
       <div class="cv-download">
         <a href="ibrahim hussein assad CV - Copy.pdf" class="btn btn-secondary" target="_blank">
@@ -2056,6 +2104,157 @@ nav {
     
     mobileMenu.addEventListener('click', () => {
       document.querySelector('.nav-links').classList.toggle('active');
+    });
+  </script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    // فەنکشنی دروستکردنی 3D Scene
+    function create3DScene(elementId, color) {
+      const container = document.getElementById(elementId);
+      if (!container) return;
+      
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+      
+      // پشکنین بۆ دەستپێگەیشتنی WebGL
+      if (!WebGLRenderingContext) {
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        if (!context) {
+          console.error('WebGL پشتگیری ناکرێت لەم وێبگەڕە');
+          return;
+        }
+      }
+      
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+      
+      // دروستکردنی Renderer بۆ مۆبایل
+      const renderer = new THREE.WebGLRenderer({ 
+        alpha: true,
+        antialias: true,
+        powerPreference: 'low-power' // بۆ پاراستنی هێزی مۆبایل
+      });
+      
+      // چاککردن بۆ مۆبایل
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // ڕێگەگرتن لە بەکارهێنانی زۆری GPU
+      renderer.setSize(width, height);
+      container.appendChild(renderer.domElement);
+
+      // دروستکردنی تەنە 3Dیەکان
+      const shapes = [];
+      const colors = [color, 0x8B5CF6, 0x38BDF8];
+      
+      // دیاریکردنی ژمارەی تەنەکان بە پێی قەبارەی پەنجەرە
+      const isMobile = window.innerWidth <= 768;
+      const count = isMobile ? 3 : 5; // کەمتر لەسەر مۆبایل
+      const sizeFactor = isMobile ? 0.7 : 1; // قەبارەی بچووکتر لەسەر مۆبایل
+      const speedFactor = isMobile ? 0.5 : 1; // خێرایی کەمتر لەسەر مۆبایل
+      
+      for (let i = 0; i < count; i++) {
+        const shapeType = Math.floor(Math.random() * 3);
+        let geom;
+        
+        if (shapeType === 0) geom = new THREE.IcosahedronGeometry(0.8 * sizeFactor, 0);
+        else if (shapeType === 1) geom = new THREE.TorusGeometry(1.2 * sizeFactor, 0.4 * sizeFactor, 16, 100);
+        else geom = new THREE.OctahedronGeometry(1.2 * sizeFactor, 0);
+        
+        const mat = new THREE.MeshBasicMaterial({
+          color: colors[Math.floor(Math.random() * colors.length)],
+          wireframe: true,
+          transparent: true,
+          opacity: isMobile ? 0.2 : 0.25 // ڕێژەی بینینی کەمتر لەسەر مۆبایل
+        });
+        
+        const mesh = new THREE.Mesh(geom, mat);
+        mesh.position.set(
+          (Math.random() - 0.5) * 10,
+          (Math.random() - 0.5) * 10,
+          Math.random() * -20
+        );
+        mesh.rotation.set(
+          Math.random() * Math.PI,
+          Math.random() * Math.PI,
+          Math.random() * Math.PI
+        );
+        
+        scene.add(mesh);
+        shapes.push({
+          mesh,
+          speed: {
+            x: (Math.random() - 0.5) * 0.01 * speedFactor,
+            y: (Math.random() - 0.5) * 0.01 * speedFactor,
+            z: (Math.random() - 0.5) * 0.01 * speedFactor,
+          }
+        });
+      }
+
+      camera.position.z = 5;
+
+      // بەڕێوەبردنی قەبارە
+      function handleResize() {
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+        
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, height);
+      }
+      
+      window.addEventListener('resize', handleResize);
+      
+      // توانای خاوبوونەوە (تەنها کاتێک لە بینیندایە ئەنیمەیشن بکات)
+      let isVisible = false;
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          isVisible = entry.isIntersecting;
+        });
+      }, { threshold: 0.1 });
+      
+      observer.observe(container);
+
+      // ئەنیمەیشن
+      function animate() {
+        requestAnimationFrame(animate);
+        
+        if (isVisible) { // تەنها کاتێک لە بینیندایە
+          shapes.forEach(shape => {
+            shape.mesh.rotation.x += shape.speed.x;
+            shape.mesh.rotation.y += shape.speed.y;
+            shape.mesh.rotation.z += shape.speed.z;
+          });
+
+          renderer.render(scene, camera);
+        }
+      }
+      
+      animate();
+      
+      return {
+        scene,
+        camera,
+        renderer,
+        shapes,
+        handleResize
+      };
+    }
+
+    // دروستکردنی 3D بۆ هەر بەشێک
+    const scenes = {};
+    
+    window.addEventListener('DOMContentLoaded', () => {
+      if (typeof THREE !== 'undefined') {
+        // ڕەنگە جیاوازەکان بۆ هەر بەشێک
+        scenes.hero = create3DScene('hero3d', 0x5271FF);
+        scenes.about = create3DScene('about3d', 0x8B5CF6);
+        scenes.projects = create3DScene('projects3d', 0x38BDF8);
+        scenes.reports = create3DScene('reports3d', 0x5271FF);
+        scenes.experience = create3DScene('experience3d', 0x8B5CF6);
+        scenes.achievements = create3DScene('achievements3d', 0x38BDF8);
+        scenes.contact = create3DScene('contact3d', 0x5271FF);
+        scenes.cv = create3DScene('cv3d', 0x8B5CF6);
+      }
     });
   </script>
 </body>
